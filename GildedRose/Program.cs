@@ -52,7 +52,7 @@ namespace GildedRose
 
                 for (var j = 0; j < items.Count; j++)
                 {
-                    outputStrArray.Add(items[j].Name + ", " + items[j].SellIn + ", " + items[j].Quality);
+                    outputStrArray.Add($"{items[j].Name}, {items[j].SellIn}, {items[j].Quality}");
                 }
 
                 outputStrArray.Add(string.Empty);
