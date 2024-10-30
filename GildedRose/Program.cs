@@ -14,19 +14,26 @@ namespace GildedRose
 
         public static string GenerateGildedRoseReport()
         {
-            const int DAYS = 31;
-            const string INITIAL_MESSAGE = "OMGHAI!";
-            List<string> outputStrArray = [INITIAL_MESSAGE];
-            IList<Item> items = InitializeItems();
-
-            var app = new GildedRoseClass(items);
-            for (var i = 0; i < DAYS; i++)
+            try
             {
-                AddDayHeader(outputStrArray, i);
-                AddItemsStatus(outputStrArray, items);
-                app.UpdateQuality();
+                const int DAYS = 31;
+                const string INITIAL_MESSAGE = "OMGHAI!";
+                List<string> outputStrArray = [INITIAL_MESSAGE];
+                IList<Item> items = InitializeItems();
+
+                var app = new GildedRoseClass(items);
+                for (var i = 0; i < DAYS; i++)
+                {
+                    AddDayHeader(outputStrArray, i);
+                    AddItemsStatus(outputStrArray, items);
+                    app.UpdateQuality();
+                }
+                return string.Join("\n", outputStrArray);
             }
-            return string.Join("\n", outputStrArray);
+            catch (Exception ex)
+            {
+                return $"An error occurred: {ex.Message}";
+            }
         }
 
         private static void AddItemsStatus(List<string> outputStrArray, IList<Item> items)
