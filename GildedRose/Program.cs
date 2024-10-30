@@ -14,7 +14,9 @@ namespace GildedRose
 
         public static string GenerateGildedRoseConsoleOutput()
         {
-            List<string> outputStrArray = ["OMGHAI!"];
+            const int DAYS = 31;
+            const string INITIAL_MESSAGE = "OMGHAI!";
+            List<string> outputStrArray = [INITIAL_MESSAGE];
 
             IList<Item> items = new List<Item>
             {
@@ -44,8 +46,7 @@ namespace GildedRose
             };
 
             var app = new GildedRoseClass(items);
-            const int Days = 31;
-            for (var i = 0; i < Days; i++)
+            for (var i = 0; i < DAYS; i++)
             {
                 outputStrArray.Add("-------- day " + i + " --------");
                 outputStrArray.Add("name, sellIn, quality");
