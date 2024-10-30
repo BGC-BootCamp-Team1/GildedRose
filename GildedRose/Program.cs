@@ -7,12 +7,12 @@ namespace GildedRose
     {
         public static void Main(string[] args)
         {
-            string outputStr = GenerateGildedRoseConsoleOutput();
+            string outputStr = GenerateGildedRoseReport();
             Console.Write(outputStr);
             
         }
 
-        public static string GenerateGildedRoseConsoleOutput()
+        public static string GenerateGildedRoseReport()
         {
             const int DAYS = 31;
             const string INITIAL_MESSAGE = "OMGHAI!";

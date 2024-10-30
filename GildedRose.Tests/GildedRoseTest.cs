@@ -13,7 +13,7 @@ namespace GildedRoseTest
             string expectedOutput = File.ReadAllText(pathToExpectedFile);
             expectedOutput = expectedOutput.Replace("\r\n", "\n").Replace("\n", Environment.NewLine);
             
-            string outputStr = Program.GenerateGildedRoseConsoleOutput();
+            string outputStr = Program.GenerateGildedRoseReport();
             outputStr = outputStr.Replace("\r\n", "\n").Replace("\n", Environment.NewLine);
             File.WriteAllText(pathToResultFile, outputStr);
 
