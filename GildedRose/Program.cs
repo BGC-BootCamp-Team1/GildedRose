@@ -7,7 +7,14 @@ namespace GildedRose
     {
         public static void Main(string[] args)
         {
-            Console.WriteLine("OMGHAI!");
+            string outputStr = GenerateGildedRoseConsoleOutput();
+            Console.Write(outputStr);
+            
+        }
+
+        public static string GenerateGildedRoseConsoleOutput()
+        {
+            List<string> outputStrArray = ["OMGHAI!"];
 
             IList<Item> items = new List<Item>
             {
@@ -38,18 +45,20 @@ namespace GildedRose
 
             var app = new GildedRose(items);
 
-            for (var i = 0; i < 31; i++)
+            for (var day = 0; day < 31; day++)
             {
-                Console.WriteLine("-------- day " + i + " --------");
-                Console.WriteLine("name, sellIn, quality");
-                for (var j = 0; j < items.Count; j++)
+                outputStrArray.Add("-------- day " + day + " --------");
+                outputStrArray.Add("name, sellIn, quality");
+
+                for (var itemIndex = 0; itemIndex < items.Count; itemIndex++)
                 {
-                    System.Console.WriteLine(items[j].Name + ", " + items[j].SellIn + ", " + items[j].Quality);
+                    outputStrArray.Add(items[itemIndex].Name + ", " + items[itemIndex].SellIn + ", " + items[itemIndex].Quality);
                 }
 
-                Console.WriteLine(string.Empty);
-                app.UpdateQuality();
+                outputStrArray.Add(string.Empty);
+                app.UpdateQualityAndSellIn();
             }
+            return string.Join("\n", outputStrArray);
         }
     }
 }
