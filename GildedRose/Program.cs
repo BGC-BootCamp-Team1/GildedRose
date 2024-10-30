@@ -22,18 +22,27 @@ namespace GildedRose
             var app = new GildedRoseClass(items);
             for (var i = 0; i < DAYS; i++)
             {
-                outputStrArray.Add("-------- day " + i + " --------");
-                outputStrArray.Add("name, sellIn, quality");
-
-                for (var j = 0; j < items.Count; j++)
-                {
-                    outputStrArray.Add($"{items[j].Name}, {items[j].SellIn}, {items[j].Quality}");
-                }
-
-                outputStrArray.Add(string.Empty);
+                AddDayHeader(outputStrArray, i);
+                AddItemsStatus(outputStrArray, items);
                 app.UpdateQuality();
             }
             return string.Join("\n", outputStrArray);
+        }
+
+        private static void AddItemsStatus(List<string> outputStrArray, IList<Item> items)
+        {
+            for (var j = 0; j < items.Count; j++)
+            {
+                outputStrArray.Add($"{items[j].Name}, {items[j].SellIn}, {items[j].Quality}");
+            }
+
+            outputStrArray.Add(string.Empty);
+        }
+
+        private static void AddDayHeader(List<string> outputStrArray, int i)
+        {
+            outputStrArray.Add("-------- day " + i + " --------");
+            outputStrArray.Add("name, sellIn, quality");
         }
 
         private static IList<Item> InitializeItems()
