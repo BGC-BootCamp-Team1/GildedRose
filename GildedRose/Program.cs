@@ -43,7 +43,7 @@ namespace GildedRose
                 },
             };
 
-            var app = new GildedRose(items);
+            var app = new GildedRoseClass(items);
             const int Days = 31;
             for (var i = 0; i < Days; i++)
             {
