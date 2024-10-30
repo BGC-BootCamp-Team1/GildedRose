@@ -1,24 +1,23 @@
-﻿using GildedRoseNS;
+﻿using GildedRose;
 using Xunit;
 
 namespace GildedRoseTest
 {
     public class GildedRoseTest
     {
-        //[Fact]
-        //public void Test()
-        //{
-        //    string text = System.IO.File.ReadAllText("sample.approved.txt");
+        [Fact]
+        public void Test()
+        {
+            string text = System.IO.File.ReadAllText("sample.approved.txt");
 
-        //    Assert.Equal("Approved result", text);
-        //}
+            Assert.Equal("Approved result", text);
+        }
 
         [Fact]
         public void UpdateQuality_NormalItem_DecreasesQualityAndSellIn()
         {
             IList<Item> items = new List<Item> { new Item { Name = "Normal Item", SellIn = 10, Quality = 20 } };
-            GildedRose app = new GildedRose(items);
-
+            GildedRoseCLZ app = new GildedRoseCLZ(items);
 
             app.UpdateQuality();
 
@@ -30,7 +29,7 @@ namespace GildedRoseTest
         public void UpdateQuality_AgedBrie_IncreasesQuality()
         {
             IList<Item> items = new List<Item> { new Item { Name = "Aged Brie", SellIn = 10, Quality = 20 } };
-            GildedRose app = new GildedRose(items);
+            GildedRoseCLZ app = new GildedRoseCLZ(items);
 
             app.UpdateQuality();
 
@@ -42,7 +41,7 @@ namespace GildedRoseTest
         public void UpdateQuality_BackstagePasses_IncreasesQuality()
         {
             IList<Item> items = new List<Item> { new Item { Name = "Backstage passes to a TAFKAL80ETC concert", SellIn = 15, Quality = 20 } };
-            GildedRose app = new GildedRose(items);
+            GildedRoseCLZ app = new GildedRoseCLZ(items);
 
             app.UpdateQuality();
 
@@ -54,7 +53,7 @@ namespace GildedRoseTest
         public void UpdateQuality_Sulfuras_NoChangeInQualityOrSellIn()
         {
             IList<Item> items = new List<Item> { new Item { Name = "Sulfuras, Hand of Ragnaros", SellIn = 10, Quality = 80 } };
-            GildedRose app = new GildedRose(items);
+            GildedRoseCLZ app = new GildedRoseCLZ(items);
 
             app.UpdateQuality();
 
@@ -66,7 +65,7 @@ namespace GildedRoseTest
         public void UpdateQuality_BackstagePasses_QualityDropsToZeroAfterConcert()
         {
             IList<Item> items = new List<Item> { new Item { Name = "Backstage passes to a TAFKAL80ETC concert", SellIn = 0, Quality = 20 } };
-            GildedRose app = new GildedRose(items);
+            GildedRoseCLZ app = new GildedRoseCLZ(items);
 
             app.UpdateQuality();
 
@@ -87,7 +86,7 @@ namespace GildedRoseTest
                 new Item { Name = "Backstage passes to a TAFKAL80ETC concert", SellIn = 10, Quality = 49 },
                 new Item { Name = "Backstage passes to a TAFKAL80ETC concert", SellIn = 5, Quality = 49 }
             };
-            GildedRose app = new GildedRose(items);
+            GildedRoseCLZ app = new GildedRoseCLZ(items);
 
             // 调用多次 UpdateQuality 方法
             for (int i = 0; i < 5; i++)

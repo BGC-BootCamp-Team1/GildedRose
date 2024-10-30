@@ -1,11 +1,11 @@
 ﻿using System.Collections.Generic;
 
-namespace GildedRoseNS
+namespace GildedRose
 {
-    public class GildedRose
+    public class GildedRoseCLZ
     {
         private IList<Item> items;
-        public GildedRose(IList<Item> items)
+        public GildedRoseCLZ(IList<Item> items)
         {
             this.items = items;
         }
