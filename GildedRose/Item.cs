@@ -9,18 +9,12 @@ namespace GildedRose
 
         public void IncreaseQuality()
         {
-            if (Quality < 50)
-            {
-                Quality += 1;
-            }
+            if (Quality < 50) Quality ++;
         }
 
         public void DecreaseQuality()
         {
-            if (Quality > 0)
-            {
-                Quality -= 1;
-            }
+            if (Quality > 0) Quality --;
         }
     }
 }

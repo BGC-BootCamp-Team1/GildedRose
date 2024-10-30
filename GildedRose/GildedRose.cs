@@ -6,80 +6,29 @@ namespace GildedRose
     public class GildedRose
     {
         private IList<Item> items;
+        private IDictionary<string, IUpdater> updaters;
         public GildedRose(IList<Item> items)
         {
             this.items = items;
+            updaters = new Dictionary<string, IUpdater>{
+                { "Aged Brie", new AgedBrieUpdater() },
+                { "Backstage passes to a TAFKAL80ETC concert", new BackstagePassesUpdater() },
+                { "Sulfuras, Hand of Ragnaros", new SulfurasUpdater() }
+            };
         }
 
         public void UpdateQuality()
         {
-            foreach (var item in items)
+            foreach (Item item in items)
             {
-                UpdateItemQuality(item);
-                UpdateSellIn(item);
-
-                if (item.SellIn < 0)
+                if (updaters.ContainsKey(item.Name))
                 {
-                    UpdateExpiredItems(item);
+                    updaters[item.Name].Update(item);
                 }
-            }
-        }
-
-        private static void UpdateSellIn(Item item)
-        {
-            if (item.Name != "Sulfuras, Hand of Ragnaros")
-            {
-                item.SellIn -= 1;
-            }
-        }
-
-        private void UpdateItemQuality(Item item)
-        {
-            switch (item.Name)
-            {
-                case "Aged Brie":
-                    item.IncreaseQuality();
-                    break;
-                case "Backstage passes to a TAFKAL80ETC concert":
-                    item.IncreaseQuality();
-                    UpdateBackstagePasses(item);
-                    break;
-                case "Sulfuras, Hand of Ragnaros":
-                    break;
-                default:
-                    item.DecreaseQuality();
-                    break;
-            }
-        }
-
-        private void UpdateExpiredItems(Item item)
-        {
-            switch (item.Name)
-            {
-                case "Aged Brie":
-                    item.IncreaseQuality();
-                    break;
-                case "Backstage passes to a TAFKAL80ETC concert":
-                    item.Quality = 0;
-                    break;
-                case "Sulfuras, Hand of Ragnaros":
-                    break;
-                default:
-                    item.DecreaseQuality();
-                    break;
-            }
-        }
-
-        private void UpdateBackstagePasses(Item item)
-        {
-            if (item.SellIn < 11)
-            {
-                item.IncreaseQuality();
-            }
-
-            if (item.SellIn < 6)
-            {
-                item.IncreaseQuality();
+                else
+                {
+                    new DefaultUpdater().Update(item);
+                }
             }
         }
     }
