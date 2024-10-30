@@ -15,7 +15,7 @@ namespace GildedRose
         {
             foreach (var item in items)
             {
-                UpdateQuality(item);
+                UpdateItemQuality(item);
                 UpdateSellIn(item);
 
                 if (item.SellIn < 0)
@@ -33,7 +33,7 @@ namespace GildedRose
             }
         }
 
-        private void UpdateQuality(Item item)
+        private void UpdateItemQuality(Item item)
         {
             switch (item.Name)
             {
