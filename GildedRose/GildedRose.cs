@@ -12,77 +12,84 @@ namespace GildedRose
 
         public void UpdateQuality()
         {
-            for (var i = 0; i < items.Count; i++)
+            foreach (var item in items)
             {
-                if (items[i].Name != "Aged Brie" && items[i].Name != "Backstage passes to a TAFKAL80ETC concert")
+                if (item.Name != "Aged Brie" && item.Name != "Backstage passes to a TAFKAL80ETC concert")
                 {
-                    if (items[i].Quality > 0)
-                    {
-                        if (items[i].Name != "Sulfuras, Hand of Ragnaros")
-                        {
-                            items[i].Quality = items[i].Quality - 1;
-                        }
-                    }
+                    DecreaseQualityIfNameNotSulfuras(item);
                 }
                 else
                 {
-                    if (items[i].Quality < 50)
-                    {
-                        items[i].Quality = items[i].Quality + 1;
-
-                        if (items[i].Name == "Backstage passes to a TAFKAL80ETC concert")
-                        {
-                            if (items[i].SellIn < 11)
-                            {
-                                if (items[i].Quality < 50)
-                                {
-                                    items[i].Quality = items[i].Quality + 1;
-                                }
-                            }
-
-                            if (items[i].SellIn < 6)
-                            {
-                                if (items[i].Quality < 50)
-                                {
-                                    items[i].Quality = items[i].Quality + 1;
-                                }
-                            }
-                        }
-                    }
+                    IncreaseQuality(item);
+                    UpdateBackstagePasses(item);
                 }
 
-                if (items[i].Name != "Sulfuras, Hand of Ragnaros")
+                if (item.Name != "Sulfuras, Hand of Ragnaros")
                 {
-                    items[i].SellIn = items[i].SellIn - 1;
+                    item.SellIn = item.SellIn - 1;
                 }
 
-                if (items[i].SellIn < 0)
+                if (item.SellIn < 0)
                 {
-                    if (items[i].Name != "Aged Brie")
+                    UpdateExpiredItems(item);
+                }
+            }
+        }
+
+        private void UpdateExpiredItems(Item item)
+        {
+            if (item.Name != "Aged Brie")
+            {
+                if (item.Name != "Backstage passes to a TAFKAL80ETC concert")
+                {
+                    DecreaseQualityIfNameNotSulfuras(item);
+                }
+                else
+                {
+                    item.Quality = 0;
+                }
+            }
+            else
+            {
+                IncreaseQuality(item);
+            }
+        }
+
+        private void UpdateBackstagePasses(Item item)
+        {
+            if (item.Quality < 50)
+            {
+                if (item.Name == "Backstage passes to a TAFKAL80ETC concert")
+                {
+                    if (item.SellIn < 11)
                     {
-                        if (items[i].Name != "Backstage passes to a TAFKAL80ETC concert")
-                        {
-                            if (items[i].Quality > 0)
-                            {
-                                if (items[i].Name != "Sulfuras, Hand of Ragnaros")
-                                {
-                                    items[i].Quality = items[i].Quality - 1;
-                                }
-                            }
-                        }
-                        else
-                        {
-                            items[i].Quality = items[i].Quality - items[i].Quality;
-                        }
+                        IncreaseQuality(item);
                     }
-                    else
+
+                    if (item.SellIn < 6)
                     {
-                        if (items[i].Quality < 50)
-                        {
-                            items[i].Quality = items[i].Quality + 1;
-                        }
+                        IncreaseQuality(item);
                     }
                 }
+            }
+        }
+
+        private void DecreaseQualityIfNameNotSulfuras(Item item)
+        {
+            if (item.Quality > 0)
+            {
+                if (item.Name != "Sulfuras, Hand of Ragnaros")
+                {
+                    item.Quality -= 1;
+                }
+            }
+        }
+
+        private void IncreaseQuality(Item item)
+        {
+            if (item.Quality < 50)
+            {
+                item.Quality += 1;
             }
         }
     }
