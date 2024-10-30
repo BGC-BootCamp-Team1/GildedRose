@@ -20,7 +20,7 @@ namespace GildedRose
                 }
                 else
                 {
-                    IncreaseQuality(item);
+                    item.IncreaseQuality();
                     UpdateBackstagePasses(item);
                 }
 
@@ -51,7 +51,7 @@ namespace GildedRose
             }
             else
             {
-                IncreaseQuality(item);
+                item.IncreaseQuality();
             }
         }
 
@@ -63,12 +63,12 @@ namespace GildedRose
                 {
                     if (item.SellIn < 11)
                     {
-                        IncreaseQuality(item);
+                        item.IncreaseQuality();
                     }
 
                     if (item.SellIn < 6)
                     {
-                        IncreaseQuality(item);
+                        item.IncreaseQuality();
                     }
                 }
             }
@@ -82,14 +82,6 @@ namespace GildedRose
                 {
                     item.Quality -= 1;
                 }
-            }
-        }
-
-        private void IncreaseQuality(Item item)
-        {
-            if (item.Quality < 50)
-            {
-                item.Quality += 1;
             }
         }
     }
