@@ -1,4 +1,6 @@
-﻿namespace GildedRose
+﻿using System.Runtime.CompilerServices;
+
+namespace GildedRose
 {
     public class GildedRose
     {
@@ -19,6 +21,12 @@
                 if (items[i].Name == NAME1)
                 {
                     items[i].IncrementQuality();
+                    items[i].SellIn = items[i].SellIn - 1;
+
+                    if (items[i].SellIn < 0)
+                    {
+                        items[i].IncrementQuality();
+                    }
                 }
                 else if (items[i].Name == NAME2)
                 {
@@ -33,34 +41,20 @@
                     {
                         items[i].IncrementQuality(2);
                     }
+                    items[i].SellIn = items[i].SellIn - 1;
 
+                    items[i].Quality = (items[i].SellIn < 0) ? 0 : items[i].Quality;
                 }
                 else if (items[i].Name != NAME3)
                 {
                     items[i].DecrementQuality();
-                }
-
-                if (items[i].Name != NAME3)
-                {
                     items[i].SellIn = items[i].SellIn - 1;
-                }
-
-                if (items[i].SellIn < 0)
-                {
-                    if (items[i].Name == NAME2)
-                    {
-                        items[i].Quality = 0;
-                    }
-
-                    if (items[i].Name == NAME1)
-                    {
-                        items[i].IncrementQuality();
-                    }
-                    else if (items[i].Name != NAME2 && items[i].Name != NAME3)
+                    if (items[i].SellIn < 0)
                     {
                         items[i].DecrementQuality();
                     }
                 }
+
             }
         }
     }
