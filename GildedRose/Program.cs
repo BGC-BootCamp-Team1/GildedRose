@@ -9,7 +9,7 @@ namespace GildedRose
         {
             string gildedRoseReport = GenerateGildedRoseReport();
             Console.Write(gildedRoseReport);
-            
+
         }
 
         public static string GenerateGildedRoseReport()
@@ -22,12 +22,16 @@ namespace GildedRose
                 IList<Item> items = InitializeItems();
 
                 var app = new GildedRoseClass(items);
-                for (var i = 0; i < DAYS; i++)
-                {
-                    AddDayHeader(outputStrArray, i);
-                    AddItemsStatus(outputStrArray, items);
-                    app.UpdateQuality();
-                }
+                outputStrArray.AddRange(
+                    Enumerable.Range(0, DAYS).SelectMany(day => 
+                    {   
+                        var dayOutput = new List<string>();
+                        AddDayHeader(dayOutput, day);
+                        AddItemsStatus(dayOutput, items);
+                        app.UpdateQuality(); 
+                        return dayOutput;
+                    })
+                );
                 return string.Join("\n", outputStrArray);
             }
             catch (Exception ex)
