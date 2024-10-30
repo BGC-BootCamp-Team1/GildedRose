@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Diagnostics;
 
 namespace GildedRose
 {
@@ -14,20 +15,8 @@ namespace GildedRose
         {
             foreach (var item in items)
             {
-                if (item.Name != "Aged Brie" && item.Name != "Backstage passes to a TAFKAL80ETC concert")
-                {
-                    DecreaseQualityIfNameNotSulfuras(item);
-                }
-                else
-                {
-                    item.IncreaseQuality();
-                    UpdateBackstagePasses(item);
-                }
-
-                if (item.Name != "Sulfuras, Hand of Ragnaros")
-                {
-                    item.SellIn = item.SellIn - 1;
-                }
+                UpdateQuality(item);
+                UpdateSellIn(item);
 
                 if (item.SellIn < 0)
                 {
@@ -36,52 +25,61 @@ namespace GildedRose
             }
         }
 
+        private static void UpdateSellIn(Item item)
+        {
+            if (item.Name != "Sulfuras, Hand of Ragnaros")
+            {
+                item.SellIn -= 1;
+            }
+        }
+
+        private void UpdateQuality(Item item)
+        {
+            switch (item.Name)
+            {
+                case "Aged Brie":
+                    item.IncreaseQuality();
+                    break;
+                case "Backstage passes to a TAFKAL80ETC concert":
+                    item.IncreaseQuality();
+                    UpdateBackstagePasses(item);
+                    break;
+                case "Sulfuras, Hand of Ragnaros":
+                    break;
+                default:
+                    item.DecreaseQuality();
+                    break;
+            }
+        }
+
         private void UpdateExpiredItems(Item item)
         {
-            if (item.Name != "Aged Brie")
+            switch (item.Name)
             {
-                if (item.Name != "Backstage passes to a TAFKAL80ETC concert")
-                {
-                    DecreaseQualityIfNameNotSulfuras(item);
-                }
-                else
-                {
+                case "Aged Brie":
+                    item.IncreaseQuality();
+                    break;
+                case "Backstage passes to a TAFKAL80ETC concert":
                     item.Quality = 0;
-                }
-            }
-            else
-            {
-                item.IncreaseQuality();
+                    break;
+                case "Sulfuras, Hand of Ragnaros":
+                    break;
+                default:
+                    item.DecreaseQuality();
+                    break;
             }
         }
 
         private void UpdateBackstagePasses(Item item)
         {
-            if (item.Quality < 50)
+            if (item.SellIn < 11)
             {
-                if (item.Name == "Backstage passes to a TAFKAL80ETC concert")
-                {
-                    if (item.SellIn < 11)
-                    {
-                        item.IncreaseQuality();
-                    }
-
-                    if (item.SellIn < 6)
-                    {
-                        item.IncreaseQuality();
-                    }
-                }
+                item.IncreaseQuality();
             }
-        }
 
-        private void DecreaseQualityIfNameNotSulfuras(Item item)
-        {
-            if (item.Quality > 0)
+            if (item.SellIn < 6)
             {
-                if (item.Name != "Sulfuras, Hand of Ragnaros")
-                {
-                    item.Quality -= 1;
-                }
+                item.IncreaseQuality();
             }
         }
     }

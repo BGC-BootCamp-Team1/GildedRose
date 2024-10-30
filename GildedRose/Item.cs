@@ -14,5 +14,13 @@ namespace GildedRose
                 Quality += 1;
             }
         }
+
+        public void DecreaseQuality()
+        {
+            if (Quality > 0)
+            {
+                Quality -= 1;
+            }
+        }
     }
 }
