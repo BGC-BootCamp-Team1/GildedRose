@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace GildedRose
+namespace GildedRoseNS
 {
     public class GildedRose
     {

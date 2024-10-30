@@ -1,5 +1,5 @@
 ﻿using System;
-namespace GildedRose
+namespace GildedRoseNS
 {
     public class Item
     {
