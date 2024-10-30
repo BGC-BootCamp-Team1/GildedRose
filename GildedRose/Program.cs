@@ -7,9 +7,54 @@ namespace GildedRose
     {
         public static void Main(string[] args)
         {
-            Console.WriteLine("OMGHAI!");
+            string gildedRoseReport = GenerateGildedRoseReport();
+            Console.Write(gildedRoseReport);
 
-            IList<Item> items = new List<Item>
+        }
+
+        public static string GenerateGildedRoseReport()
+        {
+            try
+            {
+                const int DAYS = 31;
+                const string INITIAL_MESSAGE = "OMGHAI!";
+                List<string> outputStrArray = [INITIAL_MESSAGE];
+                IList<Item> items = InitializeItems();
+
+                var app = new GildedRoseClass(items);
+                outputStrArray.AddRange(
+                    Enumerable.Range(0, DAYS).SelectMany(day => 
+                    {   
+                        var dayOutput = new List<string>();
+                        AddDayHeader(dayOutput, day);
+                        AddItemsStatus(dayOutput, items);
+                        app.UpdateQuality(); 
+                        return dayOutput;
+                    })
+                );
+                return string.Join("\n", outputStrArray);
+            }
+            catch (Exception ex)
+            {
+                return $"An error occurred: {ex.Message}";
+            }
+        }
+
+        private static void AddItemsStatus(List<string> outputStrArray, IList<Item> items)
+        {
+            outputStrArray.AddRange(items.Select(item => $"{item.Name}, {item.SellIn}, {item.Quality}"));
+            outputStrArray.Add(string.Empty);
+        }
+
+        private static void AddDayHeader(List<string> outputStrArray, int i)
+        {
+            outputStrArray.Add("-------- day " + i + " --------");
+            outputStrArray.Add("name, sellIn, quality");
+        }
+
+        private static IList<Item> InitializeItems()
+        {
+            return new List<Item>
             {
                 new Item { Name = "+5 Dexterity Vest", SellIn = 10, Quality = 20 },
                 new Item { Name = "Aged Brie", SellIn = 2, Quality = 0 },
@@ -35,21 +80,6 @@ namespace GildedRose
                     Quality = 49,
                 },
             };
-
-            var app = new GildedRose(items);
-
-            for (var i = 0; i < 31; i++)
-            {
-                Console.WriteLine("-------- day " + i + " --------");
-                Console.WriteLine("name, sellIn, quality");
-                for (var j = 0; j < items.Count; j++)
-                {
-                    System.Console.WriteLine(items[j].Name + ", " + items[j].SellIn + ", " + items[j].Quality);
-                }
-
-                Console.WriteLine(string.Empty);
-                app.UpdateQuality();
-            }
         }
     }
 }
