@@ -8,7 +8,7 @@
             this.items = items;
         }
 
-        public void UpdateQuality()
+        public void UpdateQualityAndSellIn()
         {
             const string NAME1 = "Aged Brie";
             const string NAME2 = "Backstage passes to a TAFKAL80ETC concert";
