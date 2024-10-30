@@ -7,8 +7,8 @@ namespace GildedRose
     {
         public static void Main(string[] args)
         {
-            string outputStr = GenerateGildedRoseReport();
-            Console.Write(outputStr);
+            string gildedRoseReport = GenerateGildedRoseReport();
+            Console.Write(gildedRoseReport);
             
         }
 
