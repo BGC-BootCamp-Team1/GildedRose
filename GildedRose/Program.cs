@@ -17,8 +17,28 @@ namespace GildedRose
             const int DAYS = 31;
             const string INITIAL_MESSAGE = "OMGHAI!";
             List<string> outputStrArray = [INITIAL_MESSAGE];
+            IList<Item> items = InitializeItems();
 
-            IList<Item> items = new List<Item>
+            var app = new GildedRoseClass(items);
+            for (var i = 0; i < DAYS; i++)
+            {
+                outputStrArray.Add("-------- day " + i + " --------");
+                outputStrArray.Add("name, sellIn, quality");
+
+                for (var j = 0; j < items.Count; j++)
+                {
+                    outputStrArray.Add($"{items[j].Name}, {items[j].SellIn}, {items[j].Quality}");
+                }
+
+                outputStrArray.Add(string.Empty);
+                app.UpdateQuality();
+            }
+            return string.Join("\n", outputStrArray);
+        }
+
+        private static IList<Item> InitializeItems()
+        {
+            return new List<Item>
             {
                 new Item { Name = "+5 Dexterity Vest", SellIn = 10, Quality = 20 },
                 new Item { Name = "Aged Brie", SellIn = 2, Quality = 0 },
@@ -44,22 +64,6 @@ namespace GildedRose
                     Quality = 49,
                 },
             };
-
-            var app = new GildedRoseClass(items);
-            for (var i = 0; i < DAYS; i++)
-            {
-                outputStrArray.Add("-------- day " + i + " --------");
-                outputStrArray.Add("name, sellIn, quality");
-
-                for (var j = 0; j < items.Count; j++)
-                {
-                    outputStrArray.Add($"{items[j].Name}, {items[j].SellIn}, {items[j].Quality}");
-                }
-
-                outputStrArray.Add(string.Empty);
-                app.UpdateQuality();
-            }
-            return string.Join("\n", outputStrArray);
         }
     }
 }
