@@ -44,8 +44,8 @@ namespace GildedRose
             };
 
             var app = new GildedRose(items);
-
-            for (var i = 0; i < 31; i++)
+            const int Days = 31;
+            for (var i = 0; i < Days; i++)
             {
                 outputStrArray.Add("-------- day " + i + " --------");
                 outputStrArray.Add("name, sellIn, quality");
