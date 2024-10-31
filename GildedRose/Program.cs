@@ -36,7 +36,7 @@ namespace GildedRose
                 },
             };
 
-            var app = new GildedRose(items);
+            var app = new GildedRoseCLZ(items);
 
             for (var i = 0; i < 31; i++)
             {
