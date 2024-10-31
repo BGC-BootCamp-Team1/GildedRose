@@ -22,6 +22,7 @@ namespace GildedRose
 
         public void UpdateQuality()
         {
+            DefaultUpdateStrategy defaultUpdateStrategy = new DefaultUpdateStrategy();
             foreach (var item in items)
             {
                 if (strategies.ContainsKey(item.Name))
@@ -30,7 +31,7 @@ namespace GildedRose
                 }
                 else
                 {
-                    new DefaultUpdateStrategy().Update(item);
+                    defaultUpdateStrategy.Update(item);
                 }
             }
 
